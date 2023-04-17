@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";1
-import User from "./User";
+import {User} from "./User";
+// User forgot bracket
 function App() {
-  const [users, setUser] = useState();
+  const [users, setUsers] = useState();
   //data changed all the time as the amount of data and downloading speed
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
@@ -17,9 +18,8 @@ function App() {
         }
       })
       // first time forgot input the bracket after json. no results.
-      .then((data) => {
-        setUser(data);
-      })
+      .then(data=>setUsers(data))
+      // or use .then(setUsers) same effect
       .catch((e) => setError(e))
       .finally(() => {
         setLoading(false);
@@ -28,20 +28,21 @@ function App() {
 
   let jsx; // first time use blank let varible
   if (loading) {
-    jsx = <h2>still loading</h2>;
-  } else if (error!=null) {jsx=<h2> Error!</h2>}else {
-    jsx = JSON.stringify(users); //json -> string
-  }
+    return <h2>still loading</h2>;
+  } else if (error!=null) { return <h2> Error!</h2>}else {
+  //   jsx = JSON.stringify(users); //json -> string
+  // }
   return (
-    <div className="App">
+    <>
       <h1> User List</h1>
       <ul>
-      {users.map((user) =>{return( <li><User key={id} name={name}/> </li>)})}
+      {users.map(user =>{return(<User key={user.id} name={user.name}/> )})}
       </ul>
-      {jsx}  
-     </div>
-  );
+      </>
+  )
+}
 }
 // {jsx}is a good way to learn , so keep it here...
 // not running properrly due to list writing has erros , need to watch video to walk through
+// now it's passed, users, setUser mistake. should match. also, didnt use fetch signal just noted here.
 export default App;
