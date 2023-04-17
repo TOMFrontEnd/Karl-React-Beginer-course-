@@ -36,12 +36,15 @@ function App() {
     <>
       <h1> User List</h1>
       <ul>
-      {users.map(user =>{return(<User key={user.id} name={user.name}/> )})}
+      {users.map(user =>{return(<User key={user.id} {...user}/> )})}
       </ul>
       </>
   )
 }
 }
+// could use the below to instead, 
+// {users.map(user =>{return(<User key={user.id} {...user}/> )})}
+// otherwise, if map many properties. have to name={user.name} email={user.Email} etc
 // {jsx}is a good way to learn , so keep it here...
 // not running properrly due to list writing has erros , need to watch video to walk through
 // now it's passed, users, setUser mistake. should match. also, didnt use fetch signal just noted here.
