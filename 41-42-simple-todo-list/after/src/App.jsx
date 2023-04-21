@@ -1,43 +1,44 @@
-import { useState } from "react"
-import "./styles.css"
-import { TodoItem } from "./TodoItem"
+import { useState } from "react";
+import "./styles.css";
+import { TodoItem } from "./TodoItem";
 
 function App() {
-  const [newTodoName, setNewTodoName] = useState("")
-  const [todos, setTodos] = useState([])
+  const [newTodoName, setNewTodoName] = useState("");
+  const [todos, setTodos] = useState([]);
 
   function addNewTodo() {
-    if (newTodoName === "") return
+    if (newTodoName === "") return;
 
-    setTodos(currentTodos => {
+    setTodos((currentTodos) => {
       return [
         ...currentTodos,
         { name: newTodoName, completed: false, id: crypto.randomUUID() },
-      ]
-    })
-    setNewTodoName("")
+      ];
+    });
+    setNewTodoName("");
+    // add code to get focus in input
   }
 
   function toggleTodo(todoId, completed) {
-    setTodos(currentTodos => {
-      return currentTodos.map(todo => {
-        if (todo.id === todoId) return { ...todo, completed }
+    setTodos((currentTodos) => {
+      return currentTodos.map((todo) => {
+        if (todo.id === todoId) return { ...todo, completed: !todo.completed };
 
-        return todo
-      })
-    })
+        return todo;
+      });
+    });
   }
 
   function deleteTodo(todoId) {
-    setTodos(currentTodos => {
-      return currentTodos.filter(todo => todo.id !== todoId)
-    })
+    setTodos((currentTodos) => {
+      return currentTodos.filter((todo) => todo.id !== todoId);
+    });
   }
 
   return (
     <>
       <ul id="list">
-        {todos.map(todo => {
+        {todos.map((todo) => {
           return (
             <TodoItem
               key={todo.id}
@@ -45,7 +46,7 @@ function App() {
               toggleTodo={toggleTodo}
               deleteTodo={deleteTodo}
             />
-          )
+          );
         })}
       </ul>
 
@@ -55,12 +56,18 @@ function App() {
           type="text"
           id="todo-input"
           value={newTodoName}
-          onChange={e => setNewTodoName(e.target.value)}
+          onChange={(e) => setNewTodoName(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              addNewTodo();
+            }
+          }}
+          // here add Enter onkeydown event listenner
         />
         <button onClick={addNewTodo}>Add Todo</button>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
