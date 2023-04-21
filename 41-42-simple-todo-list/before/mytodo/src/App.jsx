@@ -21,7 +21,8 @@ function App() {
   function toggleTodo(todoId, completed) {
     setTodos((currentTodos) => {
       return currentTodos.map((todo) => {
-        if (todo.id === todoId) return { ...todo, completed: !todo.completed };
+        if (todo.id === todoId) return { ...todo,completed};
+        // tried use completed:!completed. works fine, but shows completed never be read. no idea so far
         return todo;
       });
     });
